@@ -16,14 +16,17 @@ public class Bill {
         line = in.nextLine();
 
         while (!(line.equals("bye"))) {
+            line = line.trim();
             if (line.equals("list")) {
                 manager.listTasks();
-            } else if (line.matches("^mark\\s([1-9][0-9]?)")) {
-                int idx = Integer.parseInt(line.substring(MARK_INDEX)) - 1;
-                manager.markTask(idx, true);
-            } else if (line.matches("^unmark\\s([1-9][0-9]?)")) {
-                int idx = Integer.parseInt(line.substring(UNMARK_INDEX)) - 1;
-                manager.markTask(idx, false);
+            } else if (line.startsWith("mark")) {
+                String taskPart = line.substring(MARK_INDEX);
+                int taskIndex = Integer.parseInt(taskPart);
+                manager.markTask(taskIndex - 1, true);
+            } else if (line.startsWith("unmark")) {
+                String taskPart = line.substring(UNMARK_INDEX);
+                int taskIndex = Integer.parseInt(taskPart);
+                manager.markTask(taskIndex - 1, false);
             } else {
                 manager.addTask(line);
             }

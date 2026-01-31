@@ -1,4 +1,5 @@
 public class TaskManager {
+
     private final Task[] tasks = new Task[100];
     private int tasksCount = 0;
 
