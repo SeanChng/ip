@@ -11,26 +11,26 @@ public class Bill {
 
         TaskManager manager = new TaskManager();
 
-        String line;
+        String userInput;
         Scanner in = new Scanner(System.in);
-        line = in.nextLine();
+        userInput = in.nextLine();
 
-        while (!(line.equals("bye"))) {
-            line = line.trim();
-            if (line.equals("list")) {
+        while (!(userInput.equals("bye"))) {
+            userInput = userInput.trim();
+            if (userInput.equals("list")) {
                 manager.listTasks();
-            } else if (line.startsWith("mark")) {
-                String taskPart = line.substring(MARK_INDEX);
+            } else if (userInput.startsWith("mark")) {
+                String taskPart = userInput.substring(MARK_INDEX);
                 int taskIndex = Integer.parseInt(taskPart);
                 manager.markTask(taskIndex - 1, true);
-            } else if (line.startsWith("unmark")) {
-                String taskPart = line.substring(UNMARK_INDEX);
+            } else if (userInput.startsWith("unmark")) {
+                String taskPart = userInput.substring(UNMARK_INDEX);
                 int taskIndex = Integer.parseInt(taskPart);
                 manager.markTask(taskIndex - 1, false);
             } else {
-                manager.addTask(line);
+                manager.addTask(userInput);
             }
-            line = in.nextLine();
+            userInput = in.nextLine();
         }
         System.out.println("Bye. Hope to see you again soon!");
         in.close();
