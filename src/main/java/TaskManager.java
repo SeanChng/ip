@@ -3,29 +3,44 @@ public class TaskManager {
     private final Task[] tasks = new Task[100];
     private int tasksCount = 0;
 
-    public void addTask(String description) {
-        tasks[tasksCount] = new Task(description);
-        tasksCount++;
-        System.out.println("added: " + description);
-    }
+    public void addTask(Task newTask) {
+        // ensure there is space for new task
+        if (tasksCount < tasks.length) {
+            tasks[tasksCount] = newTask;
+            tasksCount++;
 
-    public void listTasks() {
-        System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < tasksCount; i++) {
-            System.out.println((i + 1) + "." + tasks[i].getStatusIcon() + " " + tasks[i].getDescription());
+            System.out.println("Got it. I've added this task:");
+            System.out.println("  " + newTask.toString());
+            System.out.println("Now you have " + tasksCount + " task(s) in the list.");
+        } else {
+            System.out.println("Error: Task list is full!");
         }
     }
 
-    public void markTask(int index, boolean isDone) {
-        if (index >= 0 && index < tasksCount) {
+    public void listTasks() {
+        if (tasksCount == 0) {
+            System.out.println("Your list is currently empty.");
+            return;
+        }
+        System.out.println("Here are the tasks in your list:");
+        for (int i = 0; i < tasksCount; i++) {
+            System.out.println((i + 1) + "." + tasks[i].toString());
+        }
+    }
+
+    public void markTask(int userIndex, boolean isDone) {
+        if (userIndex >= 0 && userIndex < tasksCount) {
+            Task t = tasks[userIndex];
             if (isDone) {
-                tasks[index].markAsDone();
+                t.markAsDone();
                 System.out.println("Nice! I've marked this task as done:");
             } else {
-                tasks[index].markAsNotDone();
+                t.markAsNotDone();
                 System.out.println("OK, I've marked this task as not done yet:");
             }
-            System.out.println("  " + tasks[index].getStatusIcon() + " " + tasks[index].getDescription());
+            System.out.println("  " + t.toString());
+        } else {
+            System.out.println("Error: Task index " + userIndex + " does not exist.");
         }
     }
 }
