@@ -1,14 +1,13 @@
 public class MessageParser {
 
     private final String taskType;
-    private final String[] components;
     private int markedIndex;
     private String todoDescription;
     private String[] deadlineDescription;
     private String[] eventDescription;
 
     public MessageParser(String userInput) {
-        components = userInput.split(" ", 2);
+        String[] components = userInput.split(" ", 2);
         taskType = components[0];
         switch (taskType) {
         case "mark":
@@ -28,10 +27,6 @@ public class MessageParser {
 
     public String getTaskType() {
         return taskType;
-    }
-
-    public String[] getComponents() {
-        return components;
     }
 
     public String getTodoDescription() {
