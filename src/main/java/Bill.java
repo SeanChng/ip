@@ -14,36 +14,51 @@ public class Bill {
 
         while (true) {
             userInput = in.nextLine().trim();
-            if (userInput.equals("bye")) {
-                break;
-            }
-            if (userInput.equals("list")) {
-                manager.listTasks();
-            }
 
-            MessageParser msg = new MessageParser(userInput);
-            switch (msg.getTaskType()) {
-            case "mark":
-                manager.markTask(msg.getMarkedIndex(), true);
-                break;
-            case "unmark":
-                manager.markTask(msg.getMarkedIndex(), false);
-                break;
-            case "todo":
-                manager.addTask(new ToDo(msg.getTodoDescription()));
-                break;
-            case "deadline":
-                manager.addTask(new Deadline(msg.getDeadlineDescription()[0],
-                                             msg.getDeadlineDescription()[1]));
-                break;
-            case "event":
-                manager.addTask(new Event(msg.getEventDescription()[0],
-                                          msg.getEventDescription()[1],
-                                          msg.getEventDescription()[2]));
-                break;
+            try {
+                MessageParser msg = new MessageParser(userInput);
+
+                switch (msg.getTaskType()) {
+                case "bye", "exit":
+                    in.close();
+                    System.out.println("Bye. Hope to see you again soon!");
+                    return;
+
+                case "list":
+                    manager.listTasks();
+                    break;
+
+                case "mark":
+                    manager.markTask(msg.getMarkedIndex(), true);
+                    break;
+
+                case "unmark":
+                    manager.markTask(msg.getMarkedIndex(), false);
+                    break;
+
+                case "todo":
+                    manager.addTask(new ToDo(msg.getTodoDescription()));
+                    break;
+
+                case "deadline":
+                    manager.addTask(new Deadline(msg.getDeadlineDescription()[0],
+                                                 msg.getDeadlineDescription()[1]));
+                    break;
+
+                case "event":
+                    manager.addTask(new Event(msg.getEventDescription()[0],
+                                              msg.getEventDescription()[1],
+                                              msg.getEventDescription()[2]));
+                    break;
+
+                case "man", "help":
+                    System.out.println("The manual is currently unavailable, please try again later");
+                    break;
+                }
+            } catch (InvalidCommandException e) {
+                System.out.println(e.getMessage());
             }
         }
-        in.close();
-        System.out.println("Bye. Hope to see you again soon!");
+
     }
 }

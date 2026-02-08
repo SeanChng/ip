@@ -20,6 +20,8 @@ public class TaskManager {
     public void listTasks() {
         if (tasksCount == 0) {
             System.out.println("Your list is currently empty.");
+            System.out.println("Start by adding some tasks!");
+            System.out.println("usage: {todo|deadline|event} [arguments]");
             return;
         }
         System.out.println("Here are the tasks in your list:");
