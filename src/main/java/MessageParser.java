@@ -13,7 +13,7 @@ public class MessageParser {
         String[] components = userInput.split(" ", 2);
         taskType = components[0];
         switch (taskType) {
-        case "list", "bye", "exit", "man", "help":
+        case "list", "bye", "exit", "man", "help", "save":
             break;
         case "mark", "unmark", "delete":
             if (components.length < 2 || components[1].trim().isEmpty()) {

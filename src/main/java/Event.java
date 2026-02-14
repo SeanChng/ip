@@ -9,6 +9,19 @@ public class Event extends Task {
         this.endTime = endTime;
     }
 
+    public String getStartTime() {
+        return startTime;
+    }
+
+    public String getEndTime() {
+        return endTime;
+    }
+
+    @Override
+    public String toSaveLine() {
+        return "E | " + (isDone ? "1" : "0") + " | " + description + " | " + startTime + " | " + endTime;
+    }
+
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + startTime + " to: " + endTime + ")";
