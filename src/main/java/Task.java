@@ -24,10 +24,6 @@ public abstract class Task {
         return description;
     }
 
-    public boolean isDone() {
-        return isDone;
-    }
-
     public abstract String toSaveLine();
 
     @Override
