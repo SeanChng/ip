@@ -2,7 +2,20 @@ import java.util.ArrayList;
 
 public class TaskManager {
 
-    private final ArrayList<Task> tasks = new ArrayList<>();
+    private ArrayList<Task> tasks = new ArrayList<>();
+    private final Storage storage = new Storage();
+
+    public void saveData() throws TaskException {
+        storage.save(tasks);
+        System.out.println("Tasks saved successfully.");
+    }
+
+    public void loadData() throws TaskException {
+        tasks = storage.load();
+        if (!tasks.isEmpty()) {
+            System.out.println("Loaded " + tasks.size() + " task(s) from save file.");
+        }
+    }
 
     public void addTask(Task newTask) {
         tasks.add(newTask);

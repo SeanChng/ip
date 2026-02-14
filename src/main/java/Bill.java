@@ -9,6 +9,12 @@ public class Bill {
 
         TaskManager manager = new TaskManager();
 
+        try {
+            manager.loadData();
+        } catch (TaskException e) {
+            System.out.println("Warning: " + e.getMessage());
+        }
+
         String userInput;
         Scanner in = new Scanner(System.in);
 
@@ -23,6 +29,10 @@ public class Bill {
                     in.close();
                     System.out.println("Bye. Hope to see you again soon!");
                     return;
+
+                case "save":
+                    manager.saveData();
+                    break;
 
                 case "list":
                     manager.listTasks();
