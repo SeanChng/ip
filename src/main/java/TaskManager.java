@@ -1,48 +1,54 @@
+import java.util.ArrayList;
+
 public class TaskManager {
 
-    private final Task[] tasks = new Task[100];
-    private int tasksCount = 0;
+    private final ArrayList<Task> tasks = new ArrayList<>();
 
     public void addTask(Task newTask) {
-        // ensure there is space for new task
-        if (tasksCount < tasks.length) {
-            tasks[tasksCount] = newTask;
-            tasksCount++;
-
-            System.out.println("Got it. I've added this task:");
-            System.out.println("  " + newTask.toString());
-            System.out.println("Now you have " + tasksCount + " task(s) in the list.");
-        } else {
-            System.out.println("Error: Task list is full!");
-        }
+        tasks.add(newTask);
+        System.out.println("Got it. I've added this task:");
+        System.out.println("  " + newTask.toString());
+        System.out.println("Now you have " + tasks.size() + " task(s) in the list.");
     }
 
     public void listTasks() {
-        if (tasksCount == 0) {
+        if (tasks.isEmpty()) {
             System.out.println("Your list is currently empty.");
             System.out.println("Start by adding some tasks!");
             System.out.println("usage: {todo|deadline|event} [arguments]");
             return;
         }
         System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < tasksCount; i++) {
-            System.out.println((i + 1) + "." + tasks[i].toString());
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.println((i + 1) + "." + tasks.get(i).toString());
         }
     }
 
-    public void markTask(int userIndex, boolean isDone) {
-        if (userIndex >= 0 && userIndex < tasksCount) {
-            Task t = tasks[userIndex];
-            if (isDone) {
-                t.markAsDone();
-                System.out.println("Nice! I've marked this task as done:");
-            } else {
-                t.markAsNotDone();
-                System.out.println("OK, I've marked this task as not done yet:");
-            }
-            System.out.println("  " + t);
-        } else {
-            System.out.println("Error: Task index " + userIndex + " does not exist.");
+    public void markTask(int userIndex, boolean isDone) throws TaskException {
+        int listIndex = userIndex - 1;
+        if (listIndex < 0 || listIndex >= tasks.size()) {
+            throw new TaskException("Task index " + userIndex + " is out of range. Use \"list\" to see valid indices.");
         }
+        Task t = tasks.get(listIndex);
+        if (isDone) {
+            t.markAsDone();
+            System.out.println("Nice! I've marked this task as done:");
+        } else {
+            t.markAsNotDone();
+            System.out.println("OK, I've marked this task as not done yet:");
+        }
+        System.out.println("  " + t);
+    }
+
+    public void deleteTask(int userIndex) throws TaskException {
+        int listIndex = userIndex - 1;
+        if (listIndex >= tasks.size() || listIndex < 0) {
+            throw new TaskException("index is out of range");
+        }
+        Task removed = tasks.get(listIndex);
+
+        System.out.println("Noted. I've removed this task:");
+        System.out.println(" " + removed);
+        System.out.println("Now you have " + tasks.size() + " task(s) in the list.");
     }
 }
