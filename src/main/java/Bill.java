@@ -54,8 +54,10 @@ public class Bill {
                 case "man", "help":
                     System.out.println("The manual is currently unavailable, please try again later");
                     break;
+                case "delete":
+                    manager.deleteTask(msg.getMarkedIndex());
                 }
-            } catch (InvalidCommandException e) {
+            } catch (InvalidCommandException | TaskException e) {
                 System.out.println(e.getMessage());
             }
         }

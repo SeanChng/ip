@@ -21,6 +21,8 @@ public class InvalidCommandException extends Exception {
             return "Invalid command for mark task. Use format: mark <taskIndex>";
         case "unmark":
             return "Invalid command for unmark task. Use format: unmark <taskIndex>";
+        case "delete":
+            return "Invalid command for deleting task. Use format: delete <taskIndex>";
         default:
             return "Unknown command: " + taskType + "\nUse \"man\" to see the list of all commands.";
         }

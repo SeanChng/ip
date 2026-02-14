@@ -15,7 +15,7 @@ public class MessageParser {
         switch (taskType) {
         case "list", "bye", "exit", "man", "help":
             break;
-        case "mark", "unmark":
+        case "mark", "unmark", "delete":
             if (components.length < 2 || components[1].trim().isEmpty()) {
                 throw new InvalidCommandException(taskType);
             }

@@ -30,19 +30,35 @@ public class TaskManager {
         }
     }
 
-    public void markTask(int userIndex, boolean isDone) {
-        if (userIndex >= 0 && userIndex < tasksCount) {
-            Task t = tasks[userIndex];
-            if (isDone) {
-                t.markAsDone();
-                System.out.println("Nice! I've marked this task as done:");
-            } else {
-                t.markAsNotDone();
-                System.out.println("OK, I've marked this task as not done yet:");
-            }
-            System.out.println("  " + t);
-        } else {
-            System.out.println("Error: Task index " + userIndex + " does not exist.");
+    public void markTask(int userIndex, boolean isDone) throws TaskException {
+        userIndex = userIndex - 1;
+        if (userIndex < 0 || userIndex >= tasksCount) {
+            throw new TaskException("Task index " + userIndex + " is out of range. Use \"list\" to see valid indices.");
         }
+        Task t = tasks[userIndex];
+        if (isDone) {
+            t.markAsDone();
+            System.out.println("Nice! I've marked this task as done:");
+        } else {
+            t.markAsNotDone();
+            System.out.println("OK, I've marked this task as not done yet:");
+        }
+        System.out.println("  " + t);
+    }
+
+    public void deleteTask(int userIndex) throws TaskException {
+        userIndex = userIndex - 1;
+        if (userIndex > tasksCount || userIndex < 0) {
+            throw new TaskException("index is out of range");
+        }
+        Task removed = tasks[userIndex];
+        for (int i = userIndex; i < tasksCount - 1; i++) {
+            tasks[i] = tasks[i + 1];
+        }
+        tasks[tasksCount - 1] = null;
+        tasksCount--;
+        System.out.println("Noted. I've removed this task:");
+        System.out.println(" " + removed);
+        System.out.println("Now you have " + tasksCount + " task(s) in the list.");
     }
 }
