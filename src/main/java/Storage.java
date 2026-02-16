@@ -9,7 +9,6 @@ import java.util.ArrayList;
 
 public class Storage {
     private static final String FILE_PATH = "../data/tasks.txt";
-    private static final String DELIMITER = " | ";
 
     public void save(ArrayList<Task> tasks) throws TaskException {
         try {
