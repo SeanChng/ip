@@ -52,13 +52,13 @@ public class Bill {
 
                 case "deadline":
                     manager.addTask(new Deadline(msg.getDeadlineDescription()[0],
-                                                 msg.getDeadlineDescription()[1]));
+                            msg.getDeadlineDescription()[1]));
                     break;
 
                 case "event":
                     manager.addTask(new Event(msg.getEventDescription()[0],
-                                              msg.getEventDescription()[1],
-                                              msg.getEventDescription()[2]));
+                            msg.getEventDescription()[1],
+                            msg.getEventDescription()[2]));
                     break;
 
                 case "man", "help":
