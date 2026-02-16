@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 public class Storage {
     private static final String FILE_PATH = "../data/tasks.txt";
-    private static final String DELIMITER = " | "; // not used in code, used for human readability
+    private static final String DELIMITER = " | ";
 
     public void save(ArrayList<Task> tasks) throws TaskException {
         try {
@@ -32,7 +32,7 @@ public class Storage {
         File file = new File(FILE_PATH);
 
         if (!file.exists()) {
-            return tasks; // new file
+            return tasks;
         }
 
         try {
