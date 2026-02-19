@@ -8,12 +8,15 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class Storage {
-    private static final String FILE_PATH = "../data/tasks.txt";
+    private static final String FILE_PATH = "data/tasks.txt";
 
     public void save(ArrayList<Task> tasks) throws TaskException {
         try {
             File file = new File(FILE_PATH);
-            file.getParentFile().mkdirs();
+            File dir = file.getParentFile();
+            if (dir != null && !dir.exists() && !dir.mkdirs()) {
+                throw new TaskException("Failed to create directory: " + dir.getPath());
+            }
 
             BufferedWriter writer = new BufferedWriter(new FileWriter(file));
             for (Task t: tasks) {
