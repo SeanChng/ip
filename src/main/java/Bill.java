@@ -26,6 +26,7 @@ public class Bill {
 
                 switch (msg.getTaskType()) {
                 case "bye", "exit":
+                    manager.saveData();
                     in.close();
                     System.out.println("Bye. Hope to see you again soon!");
                     return;
