@@ -58,7 +58,7 @@ public class TaskManager {
         if (listIndex >= tasks.size() || listIndex < 0) {
             throw new TaskException("index is out of range");
         }
-        Task removed = tasks.get(listIndex);
+        Task removed = tasks.remove(listIndex);
 
         System.out.println("Noted. I've removed this task:");
         System.out.println(" " + removed);
