@@ -1,8 +1,21 @@
+/**
+ * Signals that a user-entered command is either unrecognized or improperly formatted.
+ * This exception encapsulates the logic for generating context-specific error messages
+ * based on the command type that triggered the failure.
+ */
 public class InvalidCommandException extends Exception {
+
     public InvalidCommandException(String taskType) {
         super(getMessageForTaskType(taskType));
     }
 
+    /**
+     * Maps a command keyword or error trigger to a helpful usage instruction.
+     * Provides the user with the correct syntax for the failed command.
+     *
+     * @param taskType The type of command that failed.
+     * @return A formatted string containing a description of the error and the correct usage.
+     */
     private static String getMessageForTaskType(String taskType) {
         if (taskType == null || taskType.isEmpty()) {
             return "No command entered. Use \"man\" to see available commands.";

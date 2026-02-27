@@ -1,4 +1,16 @@
+/**
+ * Acts as the main controller for the Bill Task Manager.
+ * This class coordinates the interactions between the UI, Storage and Logic.
+ */
 public class Bill {
+
+    /**
+     * Starts the main execution loop of the application.
+     * Initializes the UI and TaskManager, loads existing data,
+     * and processes user commands until the exit command is received.
+     *
+     * @param args Command line arguments (not used).
+     */
     public static void main(String[] args) {
         final Ui ui = new Ui();
         final TaskManager manager = new TaskManager(ui);
@@ -9,6 +21,13 @@ public class Bill {
         runCommands(ui, manager);
     }
 
+    /**
+     * Acts as the wrapper method to start accepting commands,
+     * ensures that the UI is not interrupted or prematurely closed.
+     *
+     * @param ui The Ui instance to display feedback to the user.
+     * @param manager The TaskManager instance to perform operations on.
+     */
     private static void runCommands(Ui ui, TaskManager manager) {
         boolean isRunning = true;
         while (isRunning) {
@@ -16,6 +35,14 @@ public class Bill {
         }
     }
 
+    /**
+     * Processes a single user command by delegating to the MessageParser
+     * and executing the corresponding logic in the TaskManager.
+     *
+     * @param ui The Ui instance to display feedback to the user.
+     * @param manager The TaskManager instance to perform operations on.
+     * @return true if the program should continue, false if it should exit.
+     */
     private static boolean handleCommand(Ui ui, TaskManager manager) {
         try {
             MessageParser msg = new MessageParser(ui.readCommand());
@@ -74,12 +101,29 @@ public class Bill {
         return true;
     }
 
+    /**
+     * Performs cleanup and finalizes application state before exiting.
+     * This includes saving the current task list to local storage and
+     * closing any active UI resources.
+     *
+     * @param manager The TaskManager used to trigger the data save.
+     * @param ui The Ui instance to be closed.
+     * @throws TaskException If an error occurs during the file saving process.
+     */
     private static void closeApp(TaskManager manager, Ui ui) throws TaskException {
         manager.saveData();
         ui.close();
         ui.showGoodbye();
     }
 
+    /**
+     * Attempts to load existing task data from the local storage file.
+     * If a loading error occurs, a warning is displayed to the user via the UI,
+     * but the application continues with an empty task list.
+     *
+     * @param manager The TaskManager where the loaded tasks will be stored.
+     * @param ui The Ui instance used to display potential load warnings.
+     */
     private static void loadData(TaskManager manager, Ui ui) {
         try {
             manager.loadData();

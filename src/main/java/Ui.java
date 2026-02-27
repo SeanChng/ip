@@ -1,5 +1,10 @@
 import java.util.Scanner;
 
+/**
+ * Handles all interactions with the user.
+ * The <code>Ui</code> class is responsible for reading user input and
+ * displaying messages, warnings, and formatting the output for the CLI.
+ */
 public class Ui {
     private final Scanner in;
 
@@ -32,6 +37,10 @@ public class Ui {
         System.out.println("Bye. Hope to see you again soon!");
     }
 
+    /**
+     * Closes the underlying Scanner resource.
+     * Should be called when the application is shutting down.
+     */
     public void close() {
         in.close();
     }
