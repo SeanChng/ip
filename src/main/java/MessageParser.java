@@ -1,36 +1,31 @@
 public class MessageParser {
 
-    private final String taskType;
+    private String taskType;
     private int markedIndex;
     private String todoDescription;
     private String[] deadlineDescription;
     private String[] eventDescription;
 
     public MessageParser(String userInput) throws InvalidCommandException {
-        if (userInput == null || userInput.isEmpty()) {
+        if (userInput == null || userInput.trim().isEmpty()) {
             throw new InvalidCommandException("null input");
         }
+
         String[] components = userInput.split(" ", 2);
-        taskType = components[0];
+        parseByTaskType(components);
+    }
+
+    private void parseByTaskType(String[] components) throws InvalidCommandException {
+        taskType = components[0].toLowerCase();
         switch (taskType) {
         case "list", "bye", "exit", "man", "help", "save":
-            break;
-        case "mark", "unmark", "delete":
-            if (components.length < 2 || components[1].trim().isEmpty()) {
-                throw new InvalidCommandException(taskType);
-            }
-            try {
-                markedIndex = Integer.parseInt(components[1].trim());
-            } catch (NumberFormatException e) {
-                throw new InvalidCommandException(taskType);
-            }
             break;
 
         case "todo":
             if (components.length < 2 || components[1].trim().isEmpty()) {
                 throw new InvalidCommandException("todo");
             }
-            todoDescription = components[1];
+            todoDescription = components[1].trim();
             break;
 
         case "deadline":
@@ -52,6 +47,17 @@ public class MessageParser {
                     eventDescription[1].trim().isEmpty() ||
                     eventDescription[2].trim().isEmpty()) {
                 throw new InvalidCommandException("event");
+            }
+            break;
+
+        case "mark", "unmark", "delete":
+            if (components.length < 2 || components[1].trim().isEmpty()) {
+                throw new InvalidCommandException(taskType);
+            }
+            try {
+                markedIndex = Integer.parseInt(components[1].trim());
+            } catch (NumberFormatException e) {
+                throw new InvalidCommandException(taskType);
             }
             break;
 

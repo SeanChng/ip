@@ -4,36 +4,41 @@ public class TaskManager {
 
     private ArrayList<Task> tasks = new ArrayList<>();
     private final Storage storage = new Storage();
+    private final Ui ui;
+
+    public TaskManager(Ui ui) {
+        this.ui = ui;
+    }
 
     public void saveData() throws TaskException {
         storage.save(tasks);
-        System.out.println("Tasks saved successfully.");
+        ui.showMessage("Tasks saved successfully.");
     }
 
     public void loadData() throws TaskException {
         tasks = storage.load();
         if (!tasks.isEmpty()) {
-            System.out.println("Loaded " + tasks.size() + " task(s) from save file.");
+            ui.showMessage("Loaded " + tasks.size() + " task(s) from save file.");
         }
     }
 
     public void addTask(Task newTask) {
         tasks.add(newTask);
-        System.out.println("Got it. I've added this task:");
-        System.out.println("  " + newTask.toString());
-        System.out.println("Now you have " + tasks.size() + " task(s) in the list.");
+        ui.showMessage("Got it. I've added this task:\n" +
+                               "  " + newTask.toString() + "\n" +
+                               "Now you have " + tasks.size() + " task(s) in the list.");
     }
 
     public void listTasks() {
         if (tasks.isEmpty()) {
-            System.out.println("Your list is currently empty.");
-            System.out.println("Start by adding some tasks!");
-            System.out.println("usage: {todo|deadline|event} [arguments]");
+            ui.showMessage("Your list is currently empty.\n" +
+                                   "Start by adding some tasks!\n" +
+                                   "usage: {todo|deadline|event} [arguments]");
             return;
         }
-        System.out.println("Here are the tasks in your list:");
+        ui.showMessage("Here are the tasks in your list:");
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.println((i + 1) + "." + tasks.get(i).toString());
+            ui.showMessage((i + 1) + "." + tasks.get(i).toString());
         }
     }
 
@@ -45,12 +50,12 @@ public class TaskManager {
         Task t = tasks.get(listIndex);
         if (isDone) {
             t.markAsDone();
-            System.out.println("Nice! I've marked this task as done:");
+            ui.showMessage("Nice! I've marked this task as done:");
         } else {
             t.markAsNotDone();
-            System.out.println("OK, I've marked this task as not done yet:");
+            ui.showMessage("OK, I've marked this task as not done yet:");
         }
-        System.out.println("  " + t);
+        ui.showMessage("  " + t);
     }
 
     public void deleteTask(int userIndex) throws TaskException {
@@ -60,8 +65,8 @@ public class TaskManager {
         }
         Task removed = tasks.remove(listIndex);
 
-        System.out.println("Noted. I've removed this task:");
-        System.out.println(" " + removed);
-        System.out.println("Now you have " + tasks.size() + " task(s) in the list.");
+        ui.showMessage("Noted. I've removed this task:\n" +
+                               " " + removed + "\n" +
+                               "Now you have " + tasks.size() + " task(s) in the list.");
     }
 }
