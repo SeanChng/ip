@@ -6,6 +6,10 @@ public class MessageParser {
     private String[] deadlineDescription;
     private String[] eventDescription;
 
+
+
+    private String findKeyword;
+
     public MessageParser(String userInput) throws InvalidCommandException {
         if (userInput == null || userInput.trim().isEmpty()) {
             throw new InvalidCommandException("null input");
@@ -61,6 +65,13 @@ public class MessageParser {
             }
             break;
 
+        case "find":
+            if (components.length < 2 || components[1].trim().isEmpty()) {
+                throw new InvalidCommandException("find");
+            }
+            this.findKeyword = components[1].trim();
+            break;
+
         default:
             throw new InvalidCommandException(taskType);
         }
@@ -84,5 +95,9 @@ public class MessageParser {
 
     public int getMarkedIndex() {
         return markedIndex;
+    }
+
+    public String getFindKeyword() {
+        return findKeyword;
     }
 }

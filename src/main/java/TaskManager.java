@@ -69,4 +69,23 @@ public class TaskManager {
                                " " + removed + "\n" +
                                "Now you have " + tasks.size() + " task(s) in the list.");
     }
+
+    public void findTasks(String keyword) {
+        String searchLower = keyword.toLowerCase();
+        String output = "Here are the matching tasks in your list:";
+        int matchCount = 0;
+
+        for (Task t : tasks) {
+            if (t.getDescription().toLowerCase().contains(searchLower)) {
+                matchCount++;
+                output += "\n" + matchCount + "." + t;
+            }
+        }
+
+        if (matchCount == 0) {
+            ui.showMessage("There are no tasks matching: " + keyword);
+        } else {
+            ui.showMessage(output);
+        }
+    }
 }

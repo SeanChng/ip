@@ -3,8 +3,9 @@ public class Bill {
         final Ui ui = new Ui();
         final TaskManager manager = new TaskManager(ui);
 
-        ui.showWelcome();
         loadData(manager, ui);
+        ui.showWelcome();
+
         runCommands(ui, manager);
     }
 
@@ -61,6 +62,10 @@ public class Bill {
 
             case "delete":
                 manager.deleteTask(msg.getMarkedIndex());
+                break;
+
+            case "find":
+                manager.findTasks(msg.getFindKeyword());
                 break;
             }
         } catch (InvalidCommandException | TaskException e) {
