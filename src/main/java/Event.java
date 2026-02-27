@@ -59,7 +59,7 @@ public class Event extends Task {
 
     /**
      * Returns a user-friendly string representation of the event.
-     * Formats the start and end times into a readable "MMM dd yyyy, hh:mm a" format.
+     * Formats the start and end times into a readable "MMM dd yyyy, hhmm" format.
      *
      * @return A string indicating task type, status, description, and time range.
      */

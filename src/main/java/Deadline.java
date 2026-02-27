@@ -52,7 +52,7 @@ public class Deadline extends Task {
 
     /**
      * Returns a user-friendly string representation of the deadline task.
-     * The date is formatted as "MMM dd yyyy" (e.g., Dec 02 2019).
+     * The date is formatted as "MMM dd yyyy HHmm".
      *
      * @return A string indicating task type, status, description, and formatted deadline.
      */
