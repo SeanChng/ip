@@ -5,6 +5,7 @@ import java.io.FileWriter;
 import java.io.FileReader;
 import java.io.IOException;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class Storage {
@@ -73,16 +74,15 @@ public class Storage {
             t = new ToDo(description);
             break;
         case "D":
-            if (parts.length < 4) {
-                throw new TaskException("Corrupted save file entry: " + line);
-            }
-            t = new Deadline(description, parts[3].trim());
+            if (parts.length < 4) throw new TaskException("Corrupted Deadline");
+            LocalDateTime by = LocalDateTime.parse(parts[3].trim());
+            t = new Deadline(description, by);
             break;
         case "E":
-            if (parts.length < 5) {
-                throw new TaskException("Corrupted save file entry: " + line);
-            }
-            t = new Event(description, parts[3].trim(), parts[4].trim());
+            if (parts.length < 5) throw new TaskException("Corrupted Event");
+            LocalDateTime start = LocalDateTime.parse(parts[3].trim());
+            LocalDateTime end = LocalDateTime.parse(parts[4].trim());
+            t = new Event(description, start, end);
             break;
         default:
             throw new TaskException("Unknown task type in save file: " + type);
